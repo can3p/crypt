@@ -4,9 +4,11 @@
 	<meta charset="UTF-8">
 	<title></title>
 	<script type="text/javascript" src='../AES.js'></script>
+	<script type="text/javascript" src='../SHA256.js'></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/qunit/git/qunit.css" type="text/css" media="screen" />
 	<script type="text/javascript" src="http://code.jquery.com/qunit/git/qunit.js"></script>
+	<script type="text/javascript" src="binUtils.js"></script>
 
 
 </head>
@@ -19,9 +21,27 @@
 	<div id="qunit-fixture">test markup, will be hidden</div>
 	<script>
 		jQuery(function() {
+			module("conversion functions");
+			test("string functions", function() {
+				equals( "abcdzgu23".toHexString(), "61 62 63 64 7A 67 75 32 33" , 'toHexString' ) ;
+				equals( "61 62 63 64 7A 67 75 32 33".toByteString(),"abcdzgu23"  , 'toByteString' ) ;
+				equals( "qazwsxedcRFVTGB".toHexString().toByteString(), "qazwsxedcRFVTGB", "round action" );
+			});
+
+			module("SHA256");
+			test("Test hash generation", function() {
+				equals( Crypt.SHA256("123456").toHexString(), "8D 96 9E EF 6E CA D3 C2 9A 3A 62 92 80 E6 86 CF 0C 3F 5D 5A 86 AF F3 CA 12 02 0C 92 3A DC 6C 92" , 'test byte array length' ) ;
+			} );
+
 			module("Crypt.AES");
 
 			test("test round encryption-decryption", function() {
+				var iv = '3b b4 6f a4 d7 6f 16 cd 7a 6d ee e6 6d 0a a0 8d'.toByteString();
+				var text = "aaCrypted text This is that crypted long test please look at me bla bla bla",
+					pwd = Crypt.SHA256("1234"),
+					crypted = Crypt.AES.cipherCBC(text, pwd, iv);
+					console.log(crypted.toHexString());
+					console.log(crypted);
 				equals( true, true , 'test byte array length' ) ;
 			} );
 		});

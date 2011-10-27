@@ -1,4 +1,4 @@
-;(function() {
+(function(Crypt) {
 
     if(!window.Crypt) {
         window.Crypt = {};
@@ -79,4 +79,4 @@
         return binb2raw(core_sha256(str2binb(s), s.length * chrsz));
     }
 
-})();
+})(window.Crypt = window.Crypt || {});

@@ -365,13 +365,16 @@
 
 		cipherCBC: function(input, key, iv) {
 			var Nb = 16, //block size in bytes
-				expanded = Crypt.Aes.keyExpansion(key.toByteArray());
+				expanded = Crypt.AES.keyExpansion(key.toByteArray());
 
-			var charDiv = Nb - ((input.length+1) % Nb);
+			var charDiv = Nb - ((input.length) % Nb);
+            console.log(charDiv);
 			//input += String.fromCharCode(10);
 			for(var c = 0; c < charDiv; ++c) {
 				input += String.fromCharCode(charDiv);
 			}
+
+            console.log(input.toHexString());
 
 			var blockCount = Math.ceil(input.length/Nb);
 			var ciphertxt = "";
@@ -390,7 +393,7 @@
 
 		decipherCBC: function(input, key, iv) {
 			var Nb = 16, //block size in bytes
-				expanded = Crypt.Aes.keyExpansion(key.toByteArray());
+				expanded = Crypt.AES.keyExpansion(key.toByteArray());
 
 			var blockCount = Math.ceil(input.length/Nb),
 				state = iv,

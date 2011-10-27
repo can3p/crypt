@@ -15,11 +15,17 @@ def HexToByte( hexStr ):
 
 	return ''.join( bytes )
 
-IV = HexToByte('18 47 01 D1 94 A0 9E 2C 71 C2 34 FC 1F 15 00 E3')
-KEY = HexToByte('7C BC 90 2C 1A 5C 6C 31 86 FC 0A 12 DD 5F 2A 9E 40 E4 F2 EE B4 98 E0 CE 59 22 13 6E 34 2D 41 B1')
-PlainStr = 'some text to cipher 1245 '
-print PlainStr
-PlainStr = PlainStr + ( ( 16 - len(PlainStr) % 16 ) % 16 ) * chr(len(PlainStr))
+import hashlib
+hash = hashlib.sha256()
+hash.update("1234")
+# print ByteToHex(hash.digest())
+# exit(0)
+
+IV = HexToByte('3b b4 6f a4 d7 6f 16 cd 7a 6d ee e6 6d 0a a0 8d')
+KEY = hash.digest()
+PlainStr = 'aaCrypted text This is that crypted long test please look at me bla bla bla'
+print ( ( 16 - (len(PlainStr)) % 16 ) ) + len(PlainStr)
+PlainStr = PlainStr + ( ( 16 - len(PlainStr) % 16 ) ) * chr(len(PlainStr))
 print PlainStr
 print ByteToHex(PlainStr)
 
