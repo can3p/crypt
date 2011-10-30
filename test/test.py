@@ -24,9 +24,9 @@ hash.update("1234")
 IV = HexToByte('3b b4 6f a4 d7 6f 16 cd 7a 6d ee e6 6d 0a a0 8d')
 KEY = hash.digest()
 PlainStr = 'aaCrypted text This is that crypted long test please look at me bla bla bla'
-print ( ( 16 - (len(PlainStr)) % 16 ) ) + len(PlainStr)
-PlainStr = PlainStr + ( ( 16 - len(PlainStr) % 16 ) ) * chr(len(PlainStr))
-print PlainStr
+padding = 16 - len(PlainStr) % 16
+print padding
+PlainStr = PlainStr + padding * chr(padding)
 print ByteToHex(PlainStr)
 
 cipher = AES.new(KEY, AES.MODE_CBC, IV)
@@ -38,7 +38,7 @@ decrypted = cipher.decrypt(encrypted)
 print decrypted
 print ByteToHex(decrypted)
 
-print decrypted[:ord(decrypted[-1])]
+print decrypted[:-ord(decrypted[-1])]
 
 # print ByteToHex(IV)
 # print ByteToHex(KEY)

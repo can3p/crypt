@@ -40,9 +40,11 @@
 				var text = "aaCrypted text This is that crypted long test please look at me bla bla bla",
 					pwd = Crypt.SHA256("1234"),
 					crypted = Crypt.AES.cipherCBC(text, pwd, iv);
-					console.log(crypted.toHexString());
-					console.log(crypted);
-				equals( true, true , 'test byte array length' ) ;
+
+				equals(crypted.toHexString(), '3B 97 C5 1C 67 15 19 14 E8 11 C5 46 F9 92 0C 26 E5 75 38 E5 66 0D 3A 49 57 34 85 94 F6 5C D3 94 8A 01 65 6E C1 7D 81 DE 4D 63 98 B1 90 D4 68 55 4F F1 F7 AE AD 92 59 9F C2 19 D1 D1 E5 A0 8D 83 97 43 AD 74 7D 03 34 92 D0 CF D7 12 D0 5B EE D6', 'test cipherCBC');
+
+				var decrypted = Crypt.AES.decipherCBC(crypted, pwd, iv);
+				equals(text, decrypted, 'test decipher');
 			} );
 		});
     </script>

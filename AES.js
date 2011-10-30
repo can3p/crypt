@@ -403,7 +403,7 @@
 
 			for( var b=0; b < blockCount; ++b ) {
 				textBlock = input.substr(b*Nb, Nb);
-				decState = String.fromByteArray( Crypt.Aes.decipher( textBlock.toByteArray(), expanded ) );
+				decState = String.fromByteArray( Crypt.AES.decipher( textBlock.toByteArray(), expanded ) );
 
 				plain += xor( state, decState );
 				state = textBlock;
