@@ -5,6 +5,7 @@
 	<title></title>
 	<script type="text/javascript" src='../AES.js'></script>
 	<script type="text/javascript" src='../SHA256.js'></script>
+	<script type="text/javascript" src='../RC4.js'></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/qunit/git/qunit.css" type="text/css" media="screen" />
 	<script type="text/javascript" src="http://code.jquery.com/qunit/git/qunit.js"></script>
@@ -46,6 +47,19 @@
 				var decrypted = Crypt.AES.decipherCBC(crypted, pwd, iv);
 				equals(text, decrypted, 'test decipher');
 			} );
+
+			module("Crypt.RC4");
+
+			test("test Crypt.RC4 round encrypt decrypt", function() {
+				var str = "this is test str";
+				var str2 = "another string @@k1#$jс рудлава";
+				var key = Crypt.RC4.generateSessionKey();
+
+				var crypted = Crypt.RC4.encrypt( key, str );
+				var uncrypted = Crypt.RC4.decrypt( key, crypted );
+				equals( str, uncrypted, " encrypt / decrypt string");
+				equals( str2, Crypt.RC4.decrypt( key, Crypt.RC4.encrypt( key, str2 ) ) , " encrypt / decrypt string with cyrillic symbols");
+			});
 		});
     </script>
 </body>

@@ -368,13 +368,10 @@
 				expanded = Crypt.AES.keyExpansion(key.toByteArray());
 
 			var charDiv = Nb - ((input.length) % Nb);
-            console.log(charDiv);
 			//input += String.fromCharCode(10);
 			for(var c = 0; c < charDiv; ++c) {
 				input += String.fromCharCode(charDiv);
 			}
-
-            console.log(input.toHexString());
 
 			var blockCount = Math.ceil(input.length/Nb);
 			var ciphertxt = "";

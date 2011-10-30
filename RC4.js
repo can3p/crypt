@@ -1,9 +1,5 @@
-;(function() {
-		if(!window.Crypt) {
-			window.Crypt = {};
-		}
-
-		window.Crypt.RC4 = {
+(function(Crypt) {
+		Crypt.RC4 = {
 			generateSessionKey: function()
 			{
 				var arr = new Array(32),
@@ -66,4 +62,4 @@
 				return this.encrypt( key, crypt );
 			}
 		}
-})();
+})(window.Crypt = window.Crypt || {});
